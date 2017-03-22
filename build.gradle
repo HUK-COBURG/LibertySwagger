@@ -48,14 +48,6 @@ ext {
     // cfPassword = ''
 }
 
-repositories {
-    mavenCentral()
-    maven {
-        name 'liberty-starter-maven-repo'
-        url 'http://liberty-starter.wasdev.developer.ibm.com/start/api/v1/repo'
-    }
-}
-
 dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.apache.cxf:cxf-rt-rs-client:3.1.1'
@@ -147,7 +139,7 @@ task createServerBootstrap() {
 
 liberty {
     install {
-        runtimeUrl = "http://repo1.maven.org/maven2/com/ibm/websphere/appserver/runtime/wlp-webProfile7/16.0.0.3/wlp-webProfile7-16.0.0.3.zip"
+        runtimeUrl = "http://nexus.lan.huk-coburg.de/content/groups/public/com/ibm/websphere/appserver/runtime/wlp-javaee7/16.0.0.4/wlp-javaee7-16.0.0.4.zip"
     }
     serverName = wlpServerName
     packageLiberty {
