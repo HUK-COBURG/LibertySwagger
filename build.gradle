@@ -16,6 +16,8 @@ apply plugin: 'cloudfoundry'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def libertyVersion = '17.0.0.1'
+
 compileJava.options.encoding = 'UTF-8'
 
 ext {
@@ -138,10 +140,11 @@ task createServerBootstrap() {
 // Docu: https://github.com/WASdev/ci.gradle
 liberty {
     install {
-        runtimeUrl = "http://nexus.lan.huk-coburg.de/content/groups/public/com/ibm/websphere/appserver/runtime/wlp-javaee7/16.0.0.4/wlp-javaee7-16.0.0.4.zip"
+        runtimeUrl = project.ext['huk.nexus.url'] + "/com/ibm/websphere/appserver/runtime/wlp-javaee7/${libertyVersion}/wlp-javaee7-${libertyVersion}.zip"
         	username = project.ext['huk.nexus.username'] // Add here your Nexus User Token
 			password = project.ext['huk.nexus.passwd']   // Add here your Nexus User Password
     }
+    println "Liberty server version ${libertyVersion} installed"
     serverName = wlpServerName
     packageLiberty {
         archive = packageFile
