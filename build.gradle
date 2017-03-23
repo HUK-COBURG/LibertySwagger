@@ -2,9 +2,6 @@ group = 'de.huk.example'
 version = '1.0-SNAPSHOT'
 
 buildscript {
-    repositories {
-        mavenCentral()
-    }
     dependencies {
         classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:1.0'
         classpath files('gradle/wlp-anttasks.jar')
@@ -137,9 +134,13 @@ task createServerBootstrap() {
     }
 }
 
+// Use Gradle liberty plugin
+// Docu: https://github.com/WASdev/ci.gradle
 liberty {
     install {
         runtimeUrl = "http://nexus.lan.huk-coburg.de/content/groups/public/com/ibm/websphere/appserver/runtime/wlp-javaee7/16.0.0.4/wlp-javaee7-16.0.0.4.zip"
+        	username = project.ext['huk.nexus.username'] // Add here your Nexus User Token
+			password = project.ext['huk.nexus.passwd']   // Add here your Nexus User Password
     }
     serverName = wlpServerName
     packageLiberty {
@@ -195,8 +196,6 @@ cloudfoundry {
 
 tasks.create('setupServer')
 check.dependsOn 'integrationTest'
-installFeature.dependsOn 'installLiberty'
-setupServer.dependsOn 'installFeature'
 setupServer.dependsOn 'installLiberty', 'createServerBootstrap', 'publishServerConfig', 'copyConfigSnippetsToServer', 'publishWar'
 createServerBootstrap.mustRunAfter 'installLiberty'
 publishServerConfig.mustRunAfter 'installLiberty'
