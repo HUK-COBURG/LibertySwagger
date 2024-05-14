@@ -1,3 +1,0 @@
-connection.gradle.distribution=GRADLE_DISTRIBUTION(REMOTE_DISTRIBUTION(http\://eclipse-update.lan.huk-coburg.de/gradle/gradle-3.4-bin.zip))
-connection.project.dir=
-eclipse.preferences.version=1
